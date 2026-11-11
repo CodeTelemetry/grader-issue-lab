@@ -1,0 +1,42 @@
+{
+  "synthetic": true,
+  "scenario": "11-second-repo-org-baseline",
+  "description": "Second repository: the same organization checks apply; ParcelDesk's repository checks do not.",
+  "repositoryId": "ledger-lite",
+  "pullRequest": {
+    "repository": "CodeTelemetry/ledger-lite",
+    "number": null,
+    "headSha": "synthetic-11-second-repo-org-baseline",
+    "body": "",
+    "linkage": {
+      "source": "github-closing-issues-references",
+      "issues": []
+    }
+  },
+  "session": {
+    "complete": true,
+    "events": [
+      {
+        "type": "edit",
+        "path": "src/ledger.py",
+        "seq": 1
+      },
+      {
+        "type": "command",
+        "command": "make org-lint",
+        "exitCode": 0,
+        "seq": 2
+      },
+      {
+        "type": "command",
+        "command": "make org-unit",
+        "exitCode": 0,
+        "seq": 3
+      },
+      {
+        "type": "push",
+        "seq": 4
+      }
+    ]
+  }
+}

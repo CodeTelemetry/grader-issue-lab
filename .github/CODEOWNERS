@@ -1,0 +1,5 @@
+# Policy changes need maintainer review. The task mapping is the only place a task's
+# checks come from; issue and PR text can never change policy.
+/.codetelemetry/ @ElliotGardiner
+/.github/workflows/ @ElliotGardiner
+/AGENTS.md @ElliotGardiner

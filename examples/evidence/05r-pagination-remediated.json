@@ -1,0 +1,85 @@
+{
+  "synthetic": true,
+  "scenario": "05r-pagination-remediated",
+  "description": "Remediation: same final source, checks re-run after the last edit.",
+  "repositoryId": "grader-issue-lab",
+  "pullRequest": {
+    "repository": "CodeTelemetry/grader-issue-lab",
+    "number": null,
+    "headSha": "synthetic-05r-pagination-remediated",
+    "body": "",
+    "linkage": {
+      "source": "github-closing-issues-references",
+      "issues": [
+        "CodeTelemetry/grader-issue-lab#5"
+      ]
+    }
+  },
+  "session": {
+    "complete": true,
+    "events": [
+      {
+        "type": "edit",
+        "path": "src/parceldesk/pagination.py",
+        "seq": 1
+      },
+      {
+        "type": "command",
+        "command": "make org-lint",
+        "exitCode": 0,
+        "seq": 2
+      },
+      {
+        "type": "command",
+        "command": "make org-unit",
+        "exitCode": 0,
+        "seq": 3
+      },
+      {
+        "type": "command",
+        "command": "make repo-integration",
+        "exitCode": 0,
+        "seq": 4
+      },
+      {
+        "type": "command",
+        "command": "make task-pagination",
+        "exitCode": 0,
+        "seq": 5
+      },
+      {
+        "type": "edit",
+        "path": "src/parceldesk/pagination.py",
+        "seq": 6
+      },
+      {
+        "type": "command",
+        "command": "make org-lint",
+        "exitCode": 0,
+        "seq": 7
+      },
+      {
+        "type": "command",
+        "command": "make org-unit",
+        "exitCode": 0,
+        "seq": 8
+      },
+      {
+        "type": "command",
+        "command": "make repo-integration",
+        "exitCode": 0,
+        "seq": 9
+      },
+      {
+        "type": "command",
+        "command": "make task-pagination",
+        "exitCode": 0,
+        "seq": 10
+      },
+      {
+        "type": "push",
+        "seq": 11
+      }
+    ]
+  }
+}

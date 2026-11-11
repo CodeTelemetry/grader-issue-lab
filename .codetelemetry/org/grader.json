@@ -1,0 +1,43 @@
+{
+  "features": "Organization baseline for every CodeTelemetry lab repository: lint/static analysis and unit tests must succeed after the final edit and before push.",
+  "checks": [
+    {
+      "enabled": true,
+      "weight": 1,
+      "satisfactionMode": "successful",
+      "minimumOccurrences": 1,
+      "aggregationMode": "once",
+      "beforePush": true,
+      "id": "org.lint",
+      "name": "Organization lint",
+      "category": "static_analysis",
+      "matcherRule": {
+        "argumentNormalization": "persisted",
+        "include": {
+          "field": "exactFingerprint",
+          "operator": "equals",
+          "value": "v1|shell|||make|org-lint||"
+        }
+      }
+    },
+    {
+      "enabled": true,
+      "weight": 1,
+      "satisfactionMode": "successful",
+      "minimumOccurrences": 1,
+      "aggregationMode": "once",
+      "beforePush": true,
+      "id": "org.unit",
+      "name": "Organization unit tests",
+      "category": "unit_test",
+      "matcherRule": {
+        "argumentNormalization": "persisted",
+        "include": {
+          "field": "exactFingerprint",
+          "operator": "equals",
+          "value": "v1|shell|||make|org-unit||"
+        }
+      }
+    }
+  ]
+}

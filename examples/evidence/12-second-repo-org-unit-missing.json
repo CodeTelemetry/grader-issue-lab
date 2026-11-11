@@ -1,0 +1,36 @@
+{
+  "synthetic": true,
+  "scenario": "12-second-repo-org-unit-missing",
+  "description": "Second repository skipped the organization unit check: organization policy still fails it.",
+  "repositoryId": "ledger-lite",
+  "pullRequest": {
+    "repository": "CodeTelemetry/ledger-lite",
+    "number": null,
+    "headSha": "synthetic-12-second-repo-org-unit-missing",
+    "body": "",
+    "linkage": {
+      "source": "github-closing-issues-references",
+      "issues": []
+    }
+  },
+  "session": {
+    "complete": true,
+    "events": [
+      {
+        "type": "edit",
+        "path": "src/ledger.py",
+        "seq": 1
+      },
+      {
+        "type": "command",
+        "command": "make org-lint",
+        "exitCode": 0,
+        "seq": 2
+      },
+      {
+        "type": "push",
+        "seq": 3
+      }
+    ]
+  }
+}

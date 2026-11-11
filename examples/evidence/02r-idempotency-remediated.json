@@ -1,0 +1,85 @@
+{
+  "synthetic": true,
+  "scenario": "02r-idempotency-remediated",
+  "description": "Remediation: lint error fixed (a new edit), every check re-run after it.",
+  "repositoryId": "grader-issue-lab",
+  "pullRequest": {
+    "repository": "CodeTelemetry/grader-issue-lab",
+    "number": null,
+    "headSha": "synthetic-02r-idempotency-remediated",
+    "body": "",
+    "linkage": {
+      "source": "github-closing-issues-references",
+      "issues": [
+        "CodeTelemetry/grader-issue-lab#2"
+      ]
+    }
+  },
+  "session": {
+    "complete": true,
+    "events": [
+      {
+        "type": "edit",
+        "path": "src/parceldesk/refunds.py",
+        "seq": 1
+      },
+      {
+        "type": "command",
+        "command": "make org-lint",
+        "exitCode": 1,
+        "seq": 2
+      },
+      {
+        "type": "command",
+        "command": "make org-unit",
+        "exitCode": 0,
+        "seq": 3
+      },
+      {
+        "type": "command",
+        "command": "make repo-integration",
+        "exitCode": 0,
+        "seq": 4
+      },
+      {
+        "type": "command",
+        "command": "make task-idempotency",
+        "exitCode": 0,
+        "seq": 5
+      },
+      {
+        "type": "edit",
+        "path": "src/parceldesk/refunds.py",
+        "seq": 6
+      },
+      {
+        "type": "command",
+        "command": "make org-lint",
+        "exitCode": 0,
+        "seq": 7
+      },
+      {
+        "type": "command",
+        "command": "make org-unit",
+        "exitCode": 0,
+        "seq": 8
+      },
+      {
+        "type": "command",
+        "command": "make repo-integration",
+        "exitCode": 0,
+        "seq": 9
+      },
+      {
+        "type": "command",
+        "command": "make task-idempotency",
+        "exitCode": 0,
+        "seq": 10
+      },
+      {
+        "type": "push",
+        "seq": 11
+      }
+    ]
+  }
+}

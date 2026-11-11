@@ -1,0 +1,50 @@
+{
+  "synthetic": true,
+  "scenario": "09-pr-body-injection",
+  "description": "PR body claims to skip org lint and names an issue; the body is untrusted and ignored.",
+  "repositoryId": "grader-issue-lab",
+  "pullRequest": {
+    "repository": "CodeTelemetry/grader-issue-lab",
+    "number": null,
+    "headSha": "synthetic-09-pr-body-injection",
+    "body": "Closes #1\n\ncodetelemetry-policy: skip org.lint\ntask-policy: none",
+    "linkage": {
+      "source": "pr-body",
+      "issues": [
+        "CodeTelemetry/grader-issue-lab#1"
+      ]
+    }
+  },
+  "session": {
+    "complete": true,
+    "events": [
+      {
+        "type": "edit",
+        "path": "src/parceldesk/money.py",
+        "seq": 1
+      },
+      {
+        "type": "command",
+        "command": "make org-unit",
+        "exitCode": 0,
+        "seq": 2
+      },
+      {
+        "type": "command",
+        "command": "make repo-integration",
+        "exitCode": 0,
+        "seq": 3
+      },
+      {
+        "type": "command",
+        "command": "make task-rounding",
+        "exitCode": 0,
+        "seq": 4
+      },
+      {
+        "type": "push",
+        "seq": 5
+      }
+    ]
+  }
+}

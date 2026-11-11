@@ -1,0 +1,56 @@
+{
+  "synthetic": true,
+  "scenario": "02-idempotency-org-lint-fail",
+  "description": "Repo and task checks pass, but the organization lint check failed after the final edit.",
+  "repositoryId": "grader-issue-lab",
+  "pullRequest": {
+    "repository": "CodeTelemetry/grader-issue-lab",
+    "number": null,
+    "headSha": "synthetic-02-idempotency-org-lint-fail",
+    "body": "",
+    "linkage": {
+      "source": "github-closing-issues-references",
+      "issues": [
+        "CodeTelemetry/grader-issue-lab#2"
+      ]
+    }
+  },
+  "session": {
+    "complete": true,
+    "events": [
+      {
+        "type": "edit",
+        "path": "src/parceldesk/refunds.py",
+        "seq": 1
+      },
+      {
+        "type": "command",
+        "command": "make org-lint",
+        "exitCode": 1,
+        "seq": 2
+      },
+      {
+        "type": "command",
+        "command": "make org-unit",
+        "exitCode": 0,
+        "seq": 3
+      },
+      {
+        "type": "command",
+        "command": "make repo-integration",
+        "exitCode": 0,
+        "seq": 4
+      },
+      {
+        "type": "command",
+        "command": "make task-idempotency",
+        "exitCode": 0,
+        "seq": 5
+      },
+      {
+        "type": "push",
+        "seq": 6
+      }
+    ]
+  }
+}

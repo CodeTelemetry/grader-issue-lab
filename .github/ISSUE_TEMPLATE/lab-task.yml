@@ -1,0 +1,30 @@
+name: Lab task
+description: A coding task for an agent, with an acceptance command that the approved task policy maps to a Grader check.
+labels: ["lab-task"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Text in this issue is **not** policy. A task's Grader checks come only from
+        `.codetelemetry/demo/task-policy.json`, which maintainers review and version.
+  - type: textarea
+    id: goal
+    attributes: { label: Goal }
+    validations: { required: true }
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Objective, testable statements.
+    validations: { required: true }
+  - type: input
+    id: command
+    attributes:
+      label: Exact targeted command
+      placeholder: make task-<name>
+    validations: { required: true }
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Demonstrated evidence outcome
+      description: Which Grader outcome this lab task shows, how to reproduce it, and the remediation.

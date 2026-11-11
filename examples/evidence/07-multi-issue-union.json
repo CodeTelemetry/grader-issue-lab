@@ -1,0 +1,62 @@
+{
+  "synthetic": true,
+  "scenario": "07-multi-issue-union",
+  "description": "One PR closes #1 and #4: both task checks are required; only one ran.",
+  "repositoryId": "grader-issue-lab",
+  "pullRequest": {
+    "repository": "CodeTelemetry/grader-issue-lab",
+    "number": null,
+    "headSha": "synthetic-07-multi-issue-union",
+    "body": "",
+    "linkage": {
+      "source": "github-closing-issues-references",
+      "issues": [
+        "CodeTelemetry/grader-issue-lab#1",
+        "CodeTelemetry/grader-issue-lab#4"
+      ]
+    }
+  },
+  "session": {
+    "complete": true,
+    "events": [
+      {
+        "type": "edit",
+        "path": "src/parceldesk/money.py",
+        "seq": 1
+      },
+      {
+        "type": "edit",
+        "path": "src/parceldesk/access.py",
+        "seq": 2
+      },
+      {
+        "type": "command",
+        "command": "make org-lint",
+        "exitCode": 0,
+        "seq": 3
+      },
+      {
+        "type": "command",
+        "command": "make org-unit",
+        "exitCode": 0,
+        "seq": 4
+      },
+      {
+        "type": "command",
+        "command": "make repo-integration",
+        "exitCode": 0,
+        "seq": 5
+      },
+      {
+        "type": "command",
+        "command": "make task-rounding",
+        "exitCode": 0,
+        "seq": 6
+      },
+      {
+        "type": "push",
+        "seq": 7
+      }
+    ]
+  }
+}

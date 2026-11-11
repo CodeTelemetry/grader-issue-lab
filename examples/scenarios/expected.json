@@ -1,0 +1,168 @@
+{
+  "note": "Expected results of the OFFLINE simulator (python -m labgrader.repro) on the synthetic fixtures in examples/evidence/. These are not live Code Telemetry results; see docs/REPRODUCE.md for the live path and README.md for which live results exist.",
+  "verdicts": {
+    "pass": "succeeded after the final edit",
+    "fail": "failed after the final edit",
+    "stale": "only ran before the final edit",
+    "missing": "never ran (evidence complete)",
+    "unknown": "truncated output, telemetry gap, or unresolvable task linkage"
+  },
+  "scenarios": {
+    "01-rounding-pass": {
+      "overall": "pass",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass",
+        "task.rounding": "pass"
+      }
+    },
+    "02-idempotency-org-lint-fail": {
+      "overall": "fail",
+      "checks": {
+        "org.lint": "fail",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass",
+        "task.idempotency": "pass"
+      }
+    },
+    "02r-idempotency-remediated": {
+      "overall": "pass",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass",
+        "task.idempotency": "pass"
+      }
+    },
+    "03-csv-atomic-repo-integration-fail": {
+      "overall": "fail",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "fail",
+        "task.csv-atomic": "pass"
+      }
+    },
+    "03r-csv-atomic-remediated": {
+      "overall": "pass",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass",
+        "task.csv-atomic": "pass"
+      }
+    },
+    "04-authorization-task-fail": {
+      "overall": "fail",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass",
+        "task.authorization": "fail"
+      }
+    },
+    "04r-authorization-remediated": {
+      "overall": "pass",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass",
+        "task.authorization": "pass"
+      }
+    },
+    "05-pagination-stale": {
+      "overall": "fail",
+      "checks": {
+        "org.lint": "stale",
+        "org.unit": "stale",
+        "parceldesk.integration": "stale",
+        "task.pagination": "stale"
+      }
+    },
+    "05r-pagination-remediated": {
+      "overall": "pass",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass",
+        "task.pagination": "pass"
+      }
+    },
+    "06-redaction-telemetry-gap": {
+      "overall": "unknown",
+      "checks": {
+        "org.lint": "unknown",
+        "org.unit": "unknown",
+        "parceldesk.integration": "unknown",
+        "task.redaction": "unknown"
+      }
+    },
+    "06-redaction-truncated": {
+      "overall": "unknown",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass",
+        "task.redaction": "unknown"
+      }
+    },
+    "06r-redaction-remediated": {
+      "overall": "pass",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass",
+        "task.redaction": "pass"
+      }
+    },
+    "07-multi-issue-union": {
+      "overall": "fail",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass",
+        "task.rounding": "pass",
+        "task.authorization": "missing"
+      }
+    },
+    "08-unlinked-pr": {
+      "overall": "unknown",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass"
+      }
+    },
+    "09-pr-body-injection": {
+      "overall": "fail",
+      "checks": {
+        "org.lint": "missing",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass"
+      }
+    },
+    "10-unmapped-issue": {
+      "overall": "unknown",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass",
+        "parceldesk.integration": "pass"
+      }
+    },
+    "11-second-repo-org-baseline": {
+      "overall": "pass",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "pass"
+      }
+    },
+    "12-second-repo-org-unit-missing": {
+      "overall": "fail",
+      "checks": {
+        "org.lint": "pass",
+        "org.unit": "missing"
+      }
+    }
+  }
+}

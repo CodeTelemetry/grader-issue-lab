@@ -1,0 +1,25 @@
+{
+  "features": "ParcelDesk repository checks: the integration contract must succeed after the final edit and before push. Organization checks are published separately at organization scope.",
+  "checks": [
+    {
+      "enabled": true,
+      "weight": 1,
+      "satisfactionMode": "successful",
+      "minimumOccurrences": 1,
+      "aggregationMode": "once",
+      "repositoryId": "grader-issue-lab",
+      "beforePush": true,
+      "id": "parceldesk.integration",
+      "name": "ParcelDesk integration contract",
+      "category": "integration_test",
+      "matcherRule": {
+        "argumentNormalization": "persisted",
+        "include": {
+          "field": "exactFingerprint",
+          "operator": "equals",
+          "value": "v1|shell|||make|repo-integration||"
+        }
+      }
+    }
+  ]
+}

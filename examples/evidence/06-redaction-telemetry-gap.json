@@ -1,0 +1,61 @@
+{
+  "synthetic": true,
+  "scenario": "06-redaction-telemetry-gap",
+  "description": "Telemetry gap after the last observed edit: nothing can be proven either way.",
+  "repositoryId": "grader-issue-lab",
+  "pullRequest": {
+    "repository": "CodeTelemetry/grader-issue-lab",
+    "number": null,
+    "headSha": "synthetic-06-redaction-telemetry-gap",
+    "body": "",
+    "linkage": {
+      "source": "github-closing-issues-references",
+      "issues": [
+        "CodeTelemetry/grader-issue-lab#6"
+      ]
+    }
+  },
+  "session": {
+    "complete": false,
+    "events": [
+      {
+        "type": "edit",
+        "path": "src/parceldesk/audit.py",
+        "seq": 1
+      },
+      {
+        "type": "command",
+        "command": "make org-lint",
+        "exitCode": 0,
+        "seq": 2
+      },
+      {
+        "type": "command",
+        "command": "make org-unit",
+        "exitCode": 0,
+        "seq": 3
+      },
+      {
+        "type": "command",
+        "command": "make repo-integration",
+        "exitCode": 0,
+        "seq": 4
+      },
+      {
+        "type": "command",
+        "command": "make task-redaction",
+        "exitCode": 0,
+        "seq": 5
+      },
+      {
+        "type": "gap",
+        "note": "exporter dropped events for this interval",
+        "seq": 6
+      },
+      {
+        "type": "push",
+        "seq": 7
+      }
+    ]
+  }
+}

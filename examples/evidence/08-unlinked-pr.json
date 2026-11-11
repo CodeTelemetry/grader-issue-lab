@@ -1,0 +1,48 @@
+{
+  "synthetic": true,
+  "scenario": "08-unlinked-pr",
+  "description": "PR closes no issue while the repository requires linkage: task level is unknown (fail closed).",
+  "repositoryId": "grader-issue-lab",
+  "pullRequest": {
+    "repository": "CodeTelemetry/grader-issue-lab",
+    "number": null,
+    "headSha": "synthetic-08-unlinked-pr",
+    "body": "",
+    "linkage": {
+      "source": "github-closing-issues-references",
+      "issues": []
+    }
+  },
+  "session": {
+    "complete": true,
+    "events": [
+      {
+        "type": "edit",
+        "path": "src/parceldesk/money.py",
+        "seq": 1
+      },
+      {
+        "type": "command",
+        "command": "make org-lint",
+        "exitCode": 0,
+        "seq": 2
+      },
+      {
+        "type": "command",
+        "command": "make org-unit",
+        "exitCode": 0,
+        "seq": 3
+      },
+      {
+        "type": "command",
+        "command": "make repo-integration",
+        "exitCode": 0,
+        "seq": 4
+      },
+      {
+        "type": "push",
+        "seq": 5
+      }
+    ]
+  }
+}

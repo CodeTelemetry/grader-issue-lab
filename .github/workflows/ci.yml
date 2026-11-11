@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: make install
+      # One step per Grader level so each outcome is visible separately.
+      - name: "org: lint (make org-lint)"
+        run: make org-lint
+        if: always()
+      - name: "org: unit (make org-unit)"
+        run: make org-unit
+        if: always()
+      - name: "repo: integration (make repo-integration)"
+        run: make repo-integration
+        if: always()
+      - name: "task: acceptance tests present on this branch (make acceptance)"
+        run: make acceptance
+        if: always()
+      - name: "offline simulator (synthetic fixtures)"
+        run: make labgrader-test offline-repro
+        if: always()
