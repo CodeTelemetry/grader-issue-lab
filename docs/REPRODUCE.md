@@ -47,9 +47,12 @@ Needs a Code Telemetry workspace (organization key for the org baseline), the
 1. Publish `.codetelemetry/org/grader.json` at **organization** scope and
    `.codetelemetry/grader.json` at repository scope through the MCP Grader
    draft → publish flow. Record the policy versions it returns.
-2. Create this repository's dedicated GitHub gate through the MCP. Set the
-   `CODETELEMETRY_GATE_ID` repository variable, and require the
-   `codetelemetry/validation` check.
+2. Create this repository's dedicated GitHub gate through the MCP
+   (`configure_github_pr_gate`), commit the workflow it returns **unchanged** (it
+   embeds the gate ID, which is an identifier, not a secret; only OIDC tokens from
+   trusted repositories are accepted), and require the `codetelemetry/validation` check.
+   This repository's gate lives in the **CodeTelemetry Public** organization; see
+   `.codetelemetry/workspace.json`.
 3. Public repositories only: GitHub begins enforcing its default
    `pull_request_target` block on 2026-12-02 (brownout 2026-11-16). Add an
    *active event policy* that allows `pull_request_target` **only** for
