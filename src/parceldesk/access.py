@@ -1,8 +1,4 @@
-"""Customer-facing order access.
-
-Known defect (lab issue "Restrict customer order access"): any customer can read
-any order by id.
-"""
+"""Customer-facing order access: customers can read only their own orders."""
 
 from __future__ import annotations
 
@@ -14,4 +10,7 @@ class AccessDenied(PermissionError):
 
 
 def get_order_for_customer(store: OrderStore, customer_id: str, order_id: str) -> Order:
-    return store.get(order_id)
+    order = store.get(order_id)
+    if order.customer_id != customer_id:
+        raise AccessDenied("order not found")
+    return order
