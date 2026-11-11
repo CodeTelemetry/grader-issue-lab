@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "name": "grader-issue-lab",
+  "apiBase": "https://codetelemetry.com",
+  "scope": {
+    "tenantId": "a4b87468-70d1-7076-b6b7-d3e749a1cd7a",
+    "teamId": "tm_a1865a26b3660565ee000033c54ab9b3",
+    "billingAccountId": "tm_a1865a26b3660565ee000033c54ab9b3"
+  },
+  "clientBindings": {
+    "claude": {
+      "version": 1,
+      "name": "grader-issue-lab",
+      "apiBase": "https://codetelemetry.com",
+      "scope": {
+        "tenantId": "a4b87468-70d1-7076-b6b7-d3e749a1cd7a",
+        "teamId": "tm_a1865a26b3660565ee000033c54ab9b3",
+        "billingAccountId": "tm_a1865a26b3660565ee000033c54ab9b3"
+      }
+    }
+  }
+}

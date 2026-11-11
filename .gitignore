@@ -4,3 +4,9 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 build/
+
+# Local Code Telemetry / client config written by bootstrap: may hold credentials, never commit
+.claude/settings.local.json
+.claude/settings.json
+.mcp.json
+*.tfstate*
