@@ -12,7 +12,8 @@
 #   pull_request_target safe here: it runs this file as it is on the default
 #   branch, so a pull request cannot change its own gate, and pull requests
 #   from forks get a token too.
-# - The only permission is id-token: write.
+# - Permissions: id-token: write, plus read-only pull-requests/issues so the job
+#   can read which issues GitHub says this PR closes (task checks).
 #
 # GitHub Actions execution policy (separate from the required-check ruleset):
 # - From 2026-12-02 GitHub enforces its default pull_request_target block for
@@ -32,10 +33,12 @@ name: CodeTelemetry PR gate
 
 on:
   pull_request_target:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, edited]
 
 permissions:
   id-token: write
+  pull-requests: read
+  issues: read
 
 concurrency:
   group: codetelemetry-pr-gate-${{ github.event.pull_request.number }}
@@ -54,9 +57,20 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+          BASE_REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -uo pipefail
           out="$RUNNER_TEMP/codetelemetry-gate.json"
+          # The issues GitHub says this PR closes (task checks). Read-only; any
+          # failure sends no list, which CodeTelemetry treats as unknown.
+          linked='{}'
+          if refs=$(gh api graphql -F owner="${BASE_REPOSITORY%%/*}" -F name="${BASE_REPOSITORY#*/}" -F number="$PR_NUMBER" \
+            -f query='query($owner:String!,$name:String!,$number:Int!){repository(owner:$owner,name:$name){pullRequest(number:$number){closingIssuesReferences(first:50){totalCount nodes{number repository{nameWithOwner}}}}}}' 2>/dev/null); then
+            linked=$(jq -c '.data.repository.pullRequest.closingIssuesReferences
+              | if . == null then {} else {closingIssues: [.nodes[] | "\(.repository.nameWithOwner)#\(.number)"],
+                  closingIssuesComplete: (.totalCount == (.nodes | length))} end' <<<"$refs" 2>/dev/null) || linked='{}'
+          fi
           if [ -z "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ]; then
             echo "::error::No OIDC token available. The workflow needs 'permissions: id-token: write'."
             exit 1
@@ -74,8 +88,9 @@ jobs:
             echo "::add-mask::$oidc"
             body=$(jq -cn --arg gate "$CODETELEMETRY_GATE" --arg sha "$HEAD_SHA" \
               --argjson pr "$PR_NUMBER" --argjson attempt "$attempt" --arg head "$HEAD_REPOSITORY" \
+              --argjson linked "$linked" \
               '{gate: $gate, pullRequest: $pr, headSha: $sha, attempt: $attempt}
-                + (if $head == "" then {} else {headRepository: $head} end)')
+                + (if $head == "" then {} else {headRepository: $head} end) + $linked')
             status=$(curl -sS --max-time 120 -o "$out" -w '%{http_code}' -X POST \
               "$CODETELEMETRY_URL/api/integrations/github/gate/check" \
               -H "Authorization: Bearer $oidc" -H "Content-Type: application/json" \
