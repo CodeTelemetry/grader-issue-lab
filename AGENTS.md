@@ -13,15 +13,25 @@ actually ran, and in what order relative to your final edit and your push.
 
 ## Validate after your final edit, before you push
 
-Run these **exact** commands, unwrapped (no `|| true`, no pipes, no scripts around
-them) after your **last** edit:
+Commit your change first, then run these **exact** commands, one per shell call,
+unwrapped (no `|| true`, no pipes, no `&&`, no scripts around them), from the
+repository root after your **last** edit:
 
 ```sh
+git rev-parse HEAD                              # the commit you are about to test
+git status --porcelain --untracked-files=all    # must print nothing (clean tree)
 make org-lint          # organization: ruff lint
 make org-unit          # organization: unit tests
 make repo-integration  # repository: ParcelDesk integration contract
 make task-<name>       # task: the acceptance command named in your issue
+git rev-parse HEAD                              # unchanged since the first line
+git status --porcelain --untracked-files=all    # still clean
+git push origin <branch>
 ```
+
+The `git rev-parse HEAD` and `git status` lines tie the test results to the exact
+commit you push. Without them the gate cannot tell which commit was tested and
+fails closed.
 
 If you edit anything after running them, run them again. Earlier results do not
 carry over to later edits.
