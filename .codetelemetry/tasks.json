@@ -1,0 +1,143 @@
+{
+  "features": "Per-issue acceptance commands. Each check applies only to a pull request that GitHub reports closes its issue; organization and repository checks still apply.",
+  "checks": [
+    {
+      "enabled": true,
+      "weight": 1,
+      "satisfactionMode": "successful",
+      "minimumOccurrences": 1,
+      "aggregationMode": "once",
+      "beforePush": true,
+      "id": "task.rounding",
+      "name": "Acceptance: Fix currency rounding",
+      "category": "custom",
+      "matcherRule": {
+        "argumentNormalization": "persisted",
+        "include": {
+          "field": "exactFingerprint",
+          "operator": "equals",
+          "value": "v1|shell|||make|task-rounding||"
+        }
+      },
+      "issues": [
+        "codetelemetry/grader-issue-lab#1"
+      ],
+      "description": "Task check for CodeTelemetry/grader-issue-lab#1 (\"Fix currency rounding\"): `make task-rounding` succeeds after the final edit, before push. Required only when the PR closes this issue (GitHub closing-issue references)."
+    },
+    {
+      "enabled": true,
+      "weight": 1,
+      "satisfactionMode": "successful",
+      "minimumOccurrences": 1,
+      "aggregationMode": "once",
+      "beforePush": true,
+      "id": "task.idempotency",
+      "name": "Acceptance: Make refunds idempotent",
+      "category": "custom",
+      "matcherRule": {
+        "argumentNormalization": "persisted",
+        "include": {
+          "field": "exactFingerprint",
+          "operator": "equals",
+          "value": "v1|shell|||make|task-idempotency||"
+        }
+      },
+      "issues": [
+        "codetelemetry/grader-issue-lab#2"
+      ],
+      "description": "Task check for CodeTelemetry/grader-issue-lab#2 (\"Make refunds idempotent\"): `make task-idempotency` succeeds after the final edit, before push. Required only when the PR closes this issue (GitHub closing-issue references)."
+    },
+    {
+      "enabled": true,
+      "weight": 1,
+      "satisfactionMode": "successful",
+      "minimumOccurrences": 1,
+      "aggregationMode": "once",
+      "beforePush": true,
+      "id": "task.csv-atomic",
+      "name": "Acceptance: Make CSV import atomic",
+      "category": "custom",
+      "matcherRule": {
+        "argumentNormalization": "persisted",
+        "include": {
+          "field": "exactFingerprint",
+          "operator": "equals",
+          "value": "v1|shell|||make|task-csv-atomic||"
+        }
+      },
+      "issues": [
+        "codetelemetry/grader-issue-lab#3"
+      ],
+      "description": "Task check for CodeTelemetry/grader-issue-lab#3 (\"Make CSV import atomic\"): `make task-csv-atomic` succeeds after the final edit, before push. Required only when the PR closes this issue (GitHub closing-issue references)."
+    },
+    {
+      "enabled": true,
+      "weight": 1,
+      "satisfactionMode": "successful",
+      "minimumOccurrences": 1,
+      "aggregationMode": "once",
+      "beforePush": true,
+      "id": "task.authorization",
+      "name": "Acceptance: Restrict customer order access",
+      "category": "security_validation",
+      "matcherRule": {
+        "argumentNormalization": "persisted",
+        "include": {
+          "field": "exactFingerprint",
+          "operator": "equals",
+          "value": "v1|shell|||make|task-authorization||"
+        }
+      },
+      "issues": [
+        "codetelemetry/grader-issue-lab#4"
+      ],
+      "description": "Task check for CodeTelemetry/grader-issue-lab#4 (\"Restrict customer order access\"): `make task-authorization` succeeds after the final edit, before push. Required only when the PR closes this issue (GitHub closing-issue references)."
+    },
+    {
+      "enabled": true,
+      "weight": 1,
+      "satisfactionMode": "successful",
+      "minimumOccurrences": 1,
+      "aggregationMode": "once",
+      "beforePush": true,
+      "id": "task.pagination",
+      "name": "Acceptance: Implement cursor pagination",
+      "category": "custom",
+      "matcherRule": {
+        "argumentNormalization": "persisted",
+        "include": {
+          "field": "exactFingerprint",
+          "operator": "equals",
+          "value": "v1|shell|||make|task-pagination||"
+        }
+      },
+      "issues": [
+        "codetelemetry/grader-issue-lab#5"
+      ],
+      "description": "Task check for CodeTelemetry/grader-issue-lab#5 (\"Implement cursor pagination\"): `make task-pagination` succeeds after the final edit, before push. Required only when the PR closes this issue (GitHub closing-issue references)."
+    },
+    {
+      "enabled": true,
+      "weight": 1,
+      "satisfactionMode": "successful",
+      "minimumOccurrences": 1,
+      "aggregationMode": "once",
+      "beforePush": true,
+      "id": "task.redaction",
+      "name": "Acceptance: Redact secrets in audit logs",
+      "category": "security_validation",
+      "matcherRule": {
+        "argumentNormalization": "persisted",
+        "include": {
+          "field": "exactFingerprint",
+          "operator": "equals",
+          "value": "v1|shell|||make|task-redaction||"
+        }
+      },
+      "issues": [
+        "codetelemetry/grader-issue-lab#6"
+      ],
+      "description": "Task check for CodeTelemetry/grader-issue-lab#6 (\"Redact secrets in audit logs\"): `make task-redaction` succeeds after the final edit, before push. Required only when the PR closes this issue (GitHub closing-issue references)."
+    }
+  ]
+}
