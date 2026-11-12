@@ -10,3 +10,5 @@ build/
 .claude/settings.json
 .mcp.json
 *.tfstate*
+# Local CodeTelemetry credentials
+/.claude/settings.local.json
