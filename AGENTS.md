@@ -38,6 +38,10 @@ carry over to later edits.
 
 Setup: `make install` (creates `.venv`, installs pinned pytest and ruff).
 
+Telemetry: use Claude Code 2.1.289 or later. Earlier versions do not export
+tool output, so the gate never sees the `git rev-parse HEAD` SHA or the empty
+`git status` result and fails closed even when every test passed.
+
 ## Honesty rules
 
 * Never say tests passed unless you ran them in this session and saw them pass.
