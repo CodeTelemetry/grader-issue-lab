@@ -47,9 +47,12 @@ Needs a Code Telemetry workspace (organization key for the org baseline), the
 1. Publish `.codetelemetry/org/grader.json` at **organization** scope and
    `.codetelemetry/grader.json` at repository scope through the MCP Grader
    draft → publish flow. Record the policy versions it returns.
-2. Create this repository's dedicated GitHub gate through the MCP. Set the
-   `CODETELEMETRY_GATE_ID` repository variable, and require the
-   `codetelemetry/validation` check.
+2. Create this repository's dedicated GitHub gate through the MCP
+   (`configure_github_pr_gate`), commit the workflow it returns **unchanged** (it
+   embeds the gate ID, which is an identifier, not a secret; only OIDC tokens from
+   trusted repositories are accepted), and require the `codetelemetry/validation` check.
+   This repository's gate lives in the **CodeTelemetry Public** organization; see
+   `.codetelemetry/workspace.json`.
 3. Public repositories only: GitHub begins enforcing its default
    `pull_request_target` block on 2026-12-02 (brownout 2026-11-16). Add an
    *active event policy* that allows `pull_request_target` **only** for
@@ -57,9 +60,22 @@ Needs a Code Telemetry workspace (organization key for the org baseline), the
    If no gate job starts, check Actions → Policy insights. A blocked run is
    unavailable, not green.
 4. Have an agent work an issue following `AGENTS.md` and open a PR with `Closes #N`.
+   The session's telemetry must reach the workspace that owns the gate, with
+   tool output included:
+   * Use a current Claude Code CLI. Versions before 2.1.289 can lose tool output,
+     so the gate never sees the `git rev-parse HEAD` SHA or the empty
+     `git status`, and fails closed.
+   * Claude Code 2.1.282 and later ignore OpenTelemetry exporter settings in a
+     project's `.claude/settings.json` and `.claude/settings.local.json`. A
+     session started inside this repository therefore exports with your
+     user-level key, and the team-scoped gate never locates it. Pass the
+     workspace settings explicitly:
+     `claude --settings .claude/settings.local.json`, or export the same
+     `OTEL_*` variables in the shell that launches the agent.
 5. Read the verdict on the PR's `codetelemetry/validation` check and open its
    details link to the recorded session.
 
-Task-level checks **can't be enforced live yet** (ELL-607). On the live path a PR
-is gated on organization ∪ repository checks only. Don't present that as the
-three-level result.
+Task-level checks are enforced live: the gate workflow reads the PR's
+GitHub closing-issue links, and the gate adds each linked issue's checks from the
+published policy. Linkage that can't be read, or a linked issue with no mapped
+checks, fails closed (`task_linkage_unknown`, `task_policy_unmapped`).
