@@ -8,6 +8,7 @@ Two separate paths. Keep their results apart: (a) is a simulation, (b) is the pr
 git clone https://github.com/CodeTelemetry/grader-issue-lab.git
 cd grader-issue-lab
 make install            # python3 -m venv .venv + pinned pytest/ruff
+# Debian/Ubuntu without python3-venv:  uv venv -p 3.12 .venv && uv pip install -p .venv/bin/python -e '.[dev]'
 make org-lint org-unit repo-integration
 make labgrader-test     # semantics of the org → repo → task simulator
 make offline-repro      # 18 synthetic scenarios vs examples/scenarios/expected.json
