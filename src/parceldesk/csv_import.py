@@ -28,15 +28,15 @@ def import_orders(store: OrderStore, text: str) -> int:
         raise CsvImportError(f"missing columns: {', '.join(missing)}")
     staged: list[Order] = []
     seen: set[str] = set()
-    for line, row in enumerate(reader, start=2):
+    for row_number, row in enumerate(reader, start=2):
         try:
             order = Order(row["order_id"].strip(), row["customer_id"].strip(), to_cents(row["total"].strip()))
         except (ValueError, AttributeError) as exc:
-            raise CsvImportError(f"line {line}: {exc}") from exc
+            raise CsvImportError(f"row {row_number}: {exc}") from exc
         if not order.order_id or not order.customer_id:
-            raise CsvImportError(f"line {line}: order_id and customer_id are required")
+            raise CsvImportError(f"row {row_number}: order_id and customer_id are required")
         if order.order_id in seen or order.order_id in {o.order_id for o in store.all()}:
-            raise CsvImportError(f"line {line}: duplicate order id: {order.order_id}")
+            raise CsvImportError(f"row {row_number}: duplicate order id: {order.order_id}")
         seen.add(order.order_id)
         staged.append(order)
     for order in staged:
