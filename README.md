@@ -96,7 +96,7 @@ that made Claude Code sessions bindable (ElliotGardiner/claude-local PRs 1191,
 | -- | -- |
 | A second repository reusing the org baseline | offline fixture `ledger-lite` only |
 | Truncated-output *unknown* and PR-body injection | offline fixtures only |
-| Making this repository public | needs maintainer review; public repos also need the `pull_request_target` event policy (docs/REPRODUCE.md (b)3) |
+| Gate on new PRs in this public repository | GitHub's `pull_request_target` event policy must allow this workflow (docs/REPRODUCE.md (b)3); until then new gate runs stay pending, never green |
 <!-- traceability:end -->
 
 ## Layout
