@@ -78,7 +78,7 @@ Code Telemetry workspace.
 | | | agent fixes, re-validates, pushes | `57df0de` | `32e9e5ad` | ✅ [100](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/43460392701) | missing order now denied like a foreign one |
 | [#5](https://github.com/CodeTelemetry/grader-issue-lab/issues/5) | [#11](https://github.com/CodeTelemetry/grader-issue-lab/pull/11) | validate, then edit and push without re-running | `a73a016` | `450406d2` | ❌ [100, stale](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/43460790921/attempts/2) | every check passed, but before the final edit |
 | | | re-validate the same head, no edits | `a73a016` | `3fe4fbd9` | ✅ [100](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/43460790921/attempts/5) | checks re-ran with the tree bound to the head and nothing edited; the earlier stale session pushed before this one observed the head, so it is released |
-| [#6](https://github.com/CodeTelemetry/grader-issue-lab/issues/6) | [#12](https://github.com/CodeTelemetry/grader-issue-lab/pull/12) | validate and push **without** `--settings` (telemetry gap) | `05f1b2c` | not visible to the gate | ❌ [no session](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/43461562161/attempts/3) | telemetry went to the user-level key; the gate waited, then failed closed |
+| [#6](https://github.com/CodeTelemetry/grader-issue-lab/issues/6) | [#12](https://github.com/CodeTelemetry/grader-issue-lab/pull/12) | validate and push **without** `--settings` (telemetry gap) | `05f1b2c` | not visible to the gate | ❌ [no session](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/43461562161/attempts/2) | telemetry went to the user-level key; the gate waited, then failed closed |
 | | | re-validate the same head with `--settings` | `05f1b2c` | `cf35cf8b` | ✅ [100](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/43461562161/attempts/4) | evidence now reaches the workspace, bound to the head |
 
 Each gate link is the workflow run for that head; a run's later attempts show the
@@ -96,7 +96,7 @@ that made Claude Code sessions bindable (ElliotGardiner/claude-local PRs 1191,
 | -- | -- |
 | A second repository reusing the org baseline | offline fixture `ledger-lite` only |
 | Truncated-output *unknown* and PR-body injection | offline fixtures only |
-| Gate on new PRs in this public repository | GitHub's `pull_request_target` event policy must allow this workflow (docs/REPRODUCE.md (b)3); until then new gate runs stay pending, never green |
+| Gate on new PRs after GitHub starts blocking `pull_request_target` in public repositories (2026-12-02, brownout 2026-11-16) | an active event policy allows the event for the gate workflow only (docs/REPRODUCE.md (b)3); it is in place but not yet exercised by a block |
 <!-- traceability:end -->
 
 ## Layout
