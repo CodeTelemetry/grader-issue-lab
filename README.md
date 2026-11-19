@@ -23,6 +23,33 @@ GitHub issues and pull requests.
    effective check passed after the final edit for that exact head SHA. Stale,
    failed, missing and unknown evidence are reported as such, never as green.
 
+## What the gate sees
+
+Each picture puts two recorded sessions on the same pull request side by side.
+The rows are the tool calls CodeTelemetry captured, in order. The numbered bands
+and callouts are annotations that show how the gate reads them: bind the commit and
+a clean tree (1), run every required check (2), confirm the same commit and a
+clean tree (3), then push (4).
+
+**A check fails, then the fix is re-validated** ([#8](https://github.com/CodeTelemetry/grader-issue-lab/pull/8), issue [#2](https://github.com/CodeTelemetry/grader-issue-lab/issues/2)).
+Both sessions run all four checks between matching `git rev-parse HEAD` lines. The
+first one fails `org.lint` and scores 75. The second removes the unused import,
+re-runs everything on the new head, and scores 100.
+
+![PR #8: on the left, a session where make org-lint fails and the branch is pushed anyway (score 75); on the right, the agent removes the unused import, re-runs all four checks on the new head and pushes (score 100)](docs/grader-demo/pr8-lint-fail-vs-fix.png)
+
+**Every check passes, but the evidence is stale** ([#11](https://github.com/CodeTelemetry/grader-issue-lab/pull/11), issue [#5](https://github.com/CodeTelemetry/grader-issue-lab/issues/5)).
+The left session passes all four checks on `17bf12d`, then edits and pushes
+`a73a016` without re-running them, so the score is 100 and the gate still fails. The
+right session re-runs the same checks on `a73a016` without editing anything and
+passes.
+
+![PR #11: on the left, every check passes on 17bf12d, then an edit is committed and a73a016 is pushed untested (stale); on the right, the same checks run on a73a016 with no edits and the gate passes](docs/grader-demo/pr11-stale-vs-revalidated.png)
+
+Commands and outputs are as recorded, shortened where marked with `…`. Model calls,
+file reads and incidental lookups are hidden. The full sessions are listed under
+[Traceability](#traceability).
+
 ## Run it (offline, about a minute)
 
 ```sh
