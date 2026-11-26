@@ -11,6 +11,7 @@ _CARD = re.compile(r"(?<!\d)\d{9,15}(\d{4})(?!\d)")
 
 
 def _mask_cards(text: str) -> str:
+    """Mask card-like digit runs, keeping the last four digits."""
     return _CARD.sub(lambda m: "*" * (len(m.group(0)) - 4) + m.group(1), text)
 
 
