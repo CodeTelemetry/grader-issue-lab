@@ -11,6 +11,7 @@ MAX_LIMIT = 100
 
 
 def list_orders(store: OrderStore, limit: int = 50, offset: int = 0) -> list[Order]:
+    """Return up to `limit` orders starting at `offset`."""
     if limit < 1 or offset < 0:
         raise ValueError("limit must be >= 1 and offset >= 0")
     return store.all()[offset : offset + limit]
