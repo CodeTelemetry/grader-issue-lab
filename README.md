@@ -117,6 +117,24 @@ Gate decisions on the six PRs earlier than these rows predate the backend fixes
 that made Claude Code sessions bindable (ElliotGardiner/claude-local PRs 1191,
 1197, 1206, 1207, 1208) and are superseded.
 
+### Sister PRs that fail the gate
+
+Each passing task PR above has a sister PR that closes the same issue and stays
+open with a failing `codetelemetry/validation` check. Each is a real session
+(Claude Code 2.1.321, `--settings`) recorded in this lab's workspace; the defect or
+the skipped step was staged on purpose and is stated in the session's prompt.
+These sessions exported through a local relay that replaces the account email
+with `elliot@codetelemetry.com`; nothing else in the telemetry was changed.
+
+| Issue | Sister of | PR | Step | Head | Session | Gate | Why |
+| -- | -- | -- | -- | -- | -- | -- | -- |
+| [#1](https://github.com/CodeTelemetry/grader-issue-lab/issues/1) | [#7](https://github.com/CodeTelemetry/grader-issue-lab/pull/7) | [#24](https://github.com/CodeTelemetry/grader-issue-lab/pull/24) | validate org and repo checks, skip the task check, push | `a1a051d` | `7a284a52` | ❌ [75](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/45868940978) | `task.rounding` never ran (not observed) |
+| [#2](https://github.com/CodeTelemetry/grader-issue-lab/issues/2) | [#8](https://github.com/CodeTelemetry/grader-issue-lab/pull/8) | [#25](https://github.com/CodeTelemetry/grader-issue-lab/pull/25) | staged unused import, validate, push anyway | `0725b11` | `2973458e` | ❌ [75](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/45869182456) | `org.lint` failed (ruff F401) |
+| [#3](https://github.com/CodeTelemetry/grader-issue-lab/issues/3) | [#9](https://github.com/CodeTelemetry/grader-issue-lab/pull/9) | [#26](https://github.com/CodeTelemetry/grader-issue-lab/pull/26) | staged error-message regression, validate, push anyway | `9f6bf90` | `dbff5005` | ❌ [75](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/45869186529) | `parceldesk.integration` failed |
+| [#4](https://github.com/CodeTelemetry/grader-issue-lab/issues/4) | [#10](https://github.com/CodeTelemetry/grader-issue-lab/pull/10) | [#27](https://github.com/CodeTelemetry/grader-issue-lab/pull/27) | staged missing-order leak, validate, push anyway | `ca11f3e` | `af50b6f5` | ❌ [75](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/45869192135) | `task.authorization` failed |
+| [#5](https://github.com/CodeTelemetry/grader-issue-lab/issues/5) | [#11](https://github.com/CodeTelemetry/grader-issue-lab/pull/11) | [#28](https://github.com/CodeTelemetry/grader-issue-lab/pull/28) | validate, then edit, commit and push without re-running | `86360f0` | `1443359c` | ❌ [100, stale](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/45869395051) | every check passed, but before the final edit |
+| [#6](https://github.com/CodeTelemetry/grader-issue-lab/issues/6) | [#12](https://github.com/CodeTelemetry/grader-issue-lab/pull/12) | [#29](https://github.com/CodeTelemetry/grader-issue-lab/pull/29) | validate with an untracked file in the tree, push | `c60b97b` | `139be75d` | ❌ [100](https://github.com/CodeTelemetry/grader-issue-lab/actions/runs/45869403436) | every check passed, but `git status` was not clean, so the tested tree is not the pushed commit; the replay finds no verified pushed change |
+
 ### Not live yet
 
 | Gap | Where it stands |
