@@ -10,10 +10,7 @@ class AccessDenied(PermissionError):
 
 
 def get_order_for_customer(store: OrderStore, customer_id: str, order_id: str) -> Order:
-    try:
-        order = store.get(order_id)
-    except KeyError:
-        raise AccessDenied("order not found") from None
+    order = store.get(order_id)
     if order.customer_id != customer_id:
         raise AccessDenied("order not found")
     return order
